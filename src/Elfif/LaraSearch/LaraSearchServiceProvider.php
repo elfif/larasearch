@@ -18,7 +18,7 @@ class LaraSearchServiceProvider extends ServiceProvider {
 	 */
 	public function boot()
 	{
-		$this->package('elfif/larasearch');
+            
 	}
 
 	/**
@@ -30,7 +30,7 @@ class LaraSearchServiceProvider extends ServiceProvider {
 	{
             $this->app['larasearch'] = $this->app->share(function($app)
             {
-              return new LaraSearch();
+                return new LaraSearch();
             });
 	}
 
