@@ -1,4 +1,4 @@
-<?php namespace Elfif\LaraSearch; 
+<?php namespace Elfif\MetaSearch_L5; 
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -7,11 +7,11 @@
  */
 
 /**
- * Description of laraQuery
+ * Description of metaQuery
  *
  * @author FIF
  */
-class laraQuery {
+class metaQuery {
    
     private $key;
     private $fields;

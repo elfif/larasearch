@@ -1,8 +1,8 @@
-<?php namespace Elfif\LaraSearch;
+<?php namespace Elfif\MetaSearch_L5; 
 
 use Illuminate\Support\ServiceProvider;
 
-class LaraSearchServiceProvider extends ServiceProvider {
+class MetaSearchServiceProvider extends ServiceProvider {
 
 	/**
 	 * Indicates if loading of the provider is deferred.
@@ -28,9 +28,9 @@ class LaraSearchServiceProvider extends ServiceProvider {
 	 */
 	public function register()
 	{
-            $this->app['larasearch'] = $this->app->share(function($app)
+            $this->app['metasearch'] = $this->app->share(function($app)
             {
-                return new LaraSearch();
+                return new MetaSearch();
             });
 	}
 
@@ -41,7 +41,7 @@ class LaraSearchServiceProvider extends ServiceProvider {
 	 */
 	public function provides()
 	{
-            return array('larasearch');
+            return array('metasearch');
 	}
 
 }

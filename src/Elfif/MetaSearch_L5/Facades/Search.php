@@ -17,5 +17,5 @@ class Search extends Facade {
    *
    * @return string
    */
-  protected static function getFacadeAccessor() { return 'larasearch'; }
+  protected static function getFacadeAccessor() { return 'metasearch'; }
 }

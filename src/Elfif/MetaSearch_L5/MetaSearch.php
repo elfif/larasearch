@@ -1,4 +1,4 @@
-<?php namespace Elfif\LaraSearch;
+<?php namespace Elfif\MetaSearch_L5; 
 
 /**
  * Description of metaSearch
@@ -8,7 +8,7 @@
 
 
 
-class LaraSearch {
+class MetaSearch {
     
     private $formData;
     private $query;

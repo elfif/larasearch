@@ -1,5 +1,5 @@
 {
-    "name": "elfif/larasearch",
+    "name": "elfif/metasearch_L5",
     "description": "",
     "authors": [
         {
@@ -17,7 +17,7 @@
     },
     "autoload": {
         "psr-0": {
-            "Elfif\\LaraSearch\\": "src/"
+            "Elfif\\MetaSearch_L5\\": "src/"
         }
     },
     "minimum-stability": "stable"
