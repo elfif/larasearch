@@ -10,7 +10,6 @@
 
 class LaraSearch {
     
-    private $modelName;
     private $formData;
     private $query;
 

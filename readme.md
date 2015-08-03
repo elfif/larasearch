@@ -2,7 +2,8 @@
 
 ## Overview ##
 
-Larasearch is a package for Laravel 4. It allows you to easily create an Eloquent query that match with a search form. By using a list of keywords on your search form input fields names, Larasearch will automatically create the corresponding query . 
+Larasearch is a package for Laravel 5. It allows you to easily create an Eloquent query that match with a search form. By using a list of keywords on your search form input fields names, Larasearch will automatically create the corresponding query . 
+It's more or less a port of activerecord-hackery/meta_search.
 
 Here is a simple example :
  
