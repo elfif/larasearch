@@ -6,7 +6,7 @@
  * and open the template in the editor.
  */
 
-namespace Elfif\LaraSearch\Facades;
+namespace Elfif\MetaSearch_L5\Facades;
  
 use Illuminate\Support\Facades\Facade;
  
