@@ -22,7 +22,7 @@ class MetaSearch {
     }   
 
     public static function getQuery($modelQuery, $formData){
-        $s = new LaraSearch();
+        $s = new MetaSearch();
         $s->setQuery($modelQuery);
         $s->setFormData($formData);
         return $s->generateQuery();
@@ -31,7 +31,7 @@ class MetaSearch {
     public function generateQuery(){
 
         foreach($this->formData as $key => $value){
-            $laraQuery = new laraQuery($key, $value, $this->query);
+            $laraQuery = new MetaQuery($key, $value, $this->query);
             $this->query = $laraQuery->getQuery();
         }
         return $this->query;

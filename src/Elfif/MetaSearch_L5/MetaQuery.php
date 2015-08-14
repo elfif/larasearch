@@ -11,7 +11,7 @@
  *
  * @author FIF
  */
-class metaQuery {
+class MetaQuery {
    
     private $key;
     private $fields;
