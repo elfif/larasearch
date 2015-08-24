@@ -23,14 +23,12 @@ class MetaSearch {
 
     public static function getQuery($modelQuery, $formData){
         $s = new MetaSearch();
-        dd($formData);
         $s->setQuery($modelQuery);
         $s->setFormData($formData);
         return $s->generateQuery();
     }
 
     public function generateQuery(){
-        dd($this->formData);
         foreach($this->formData as $key => $value){
             $laraQuery = new MetaQuery($key, $value, $this->query);
             $this->query = $laraQuery->getQuery();
