@@ -220,27 +220,39 @@ class MetaQuery {
     
     CONST OU = '_or_';
     CONST EQUALS = '_equals';
+    CONST EQUALS_SHORT = '_eq';
     CONST DOES_NOT_EQUAL = '_does_not_equals';
+    CONST DOES_NOT_EQUAL_SHORT = '_does_not_eq';
     CONST IS_IN = '_is_in';
     CONST IS_NOT_IN = '_is_not_in';
     CONST IS_NULL = '_is_null';
     CONST IS_NOT_NULL = '_is_not_null';
     CONST CONTAINS = '_contains';
     CONST DOES_NOT_CONTAIN = '_does_not_contains';
+    CONST STARTS_WITH_SHORT = '_sw';
+    CONST ENDS_WITH_SHORT = '_ew';
     CONST STARTS_WITH = '_starts_with';
     CONST ENDS_WITH = '_ends_with';
     CONST DOES_NOT_START_WITH = '_does_not_start_with';
     CONST DOES_NOT_END_WITH = '_does_not_end_with';
+    CONST DOES_NOT_START_WITH_SHORT = '_not_sw';
+    CONST DOES_NOT_END_WITH_SHORT = '_not_ew';
     CONST GREATER_THAN = '_greater_than';
     CONST GREATER_THAN_OR_EQUAL = '_greater_than_or_equal';
     CONST LESS_THAN = '_less_than';
     CONST LESS_THAN_OR_EQUAL = '_less_than_or_equal';
+    CONST GREATER_THAN_SHORT= '_gt';
+    CONST GREATER_THAN_OR_EQUAL_SHORT = '_gteq';
+    CONST LESS_THAN_SHORT= '_lt';
+    CONST LESS_THAN_OR_EQUAL_SHORT = '_lteq';
     CONST IS_TRUE = '_is_true';
     CONST IS_FALSE = '_is_false';
     
     private $keywords = array(
         self::EQUALS, 
         self::DOES_NOT_EQUAL,
+        self::EQUALS_SHORT, 
+        self::DOES_NOT_EQUAL_SHORT,
         self::IS_IN,
         self::IS_NOT_IN,
         self::IS_NULL,
@@ -249,8 +261,16 @@ class MetaQuery {
         self::DOES_NOT_CONTAIN,
         self::STARTS_WITH,
         self::ENDS_WITH,
+        self::STARTS_WITH_SHORT,
+        self::ENDS_WITH_SHORT,
         self::DOES_NOT_START_WITH,
         self::DOES_NOT_END_WITH,
+        self::DOES_NOT_START_WITH_SHORT,
+        self::DOES_NOT_END_WITH_SHORT,
+        self::GREATER_THAN_OR_EQUAL_SHORT,
+        self::GREATER_THAN_SHORT,
+        self::LESS_THAN_OR_EQUAL_SHORT,
+        self::LESS_THAN_SHORT,
         self::GREATER_THAN_OR_EQUAL,
         self::GREATER_THAN,
         self::LESS_THAN_OR_EQUAL,
@@ -260,6 +280,9 @@ class MetaQuery {
     );
     
     private $functions = array(
+      
+      self::EQUALS_SHORT => 'equalsQuery',
+      self::DOES_NOT_EQUAL_SHORT => 'doesNotEqualQuery',
       self::EQUALS => 'equalsQuery',
       self::DOES_NOT_EQUAL => 'doesNotEqualQuery',
       self::IS_IN => 'isInQuery',
@@ -268,10 +291,18 @@ class MetaQuery {
       self::IS_NOT_NULL =>'isNotNullQuery',
       self::CONTAINS =>'containsQuery',
       self::DOES_NOT_CONTAIN =>'doesNotContainQuery',
+      self::STARTS_WITH_SHORT =>'startsWithQuery',
+      self::ENDS_WITH_SHORT =>'endsWithQuery',
+      self::DOES_NOT_START_WITH_SHORT =>'doesNotStartWithQuery',
+      self::DOES_NOT_END_WITH_SHORT =>'doesNotEndWithQuery',
       self::STARTS_WITH =>'startsWithQuery',
       self::ENDS_WITH =>'endsWithQuery',
       self::DOES_NOT_START_WITH =>'doesNotStartWithQuery',
       self::DOES_NOT_END_WITH =>'doesNotEndWithQuery',
+      self::GREATER_THAN_OR_EQUAL_SHORT =>'greaterThanOrEqualQuery',
+      self::GREATER_THAN_SHORT =>'greaterThanQuery',
+      self::LESS_THAN_OR_EQUAL_SHORT =>'lessThanOrEqualQuery',
+      self::LESS_THAN_SHORT=>'lessThanQuery',
       self::GREATER_THAN_OR_EQUAL =>'greaterThanOrEqualQuery',
       self::GREATER_THAN =>'greaterThanQuery',
       self::LESS_THAN_OR_EQUAL =>'lessThanOrEqualQuery',
@@ -281,3 +312,4 @@ class MetaQuery {
     );
     
 }
+
