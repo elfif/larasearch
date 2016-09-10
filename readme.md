@@ -25,12 +25,12 @@ first the search form :
 Then in your CarsController :
 
 
-		$input = Input::all();
+		$input = Request::all();
         $query = Search::getQuery(Car::getQuery(), $input);
         $cars = $query->get();
-		return View::make('cars.index', ['cars' => $cars]);
+		return view('cars.index', ['cars' => $cars]);
 
-And that's it, the generateQuery method will create the Query based on the Input content.
+And that's it, the getQuery method will create the Query based on the Input content.
 
 ## Installation ##
 
