@@ -37,18 +37,18 @@ And that's it, the getQuery method will create the Query based on the Input cont
 first add the dependency to uyour composer.json file : 
 
 		"require": {
-			"elfif/Larasearch" : "*"
+			"elfif/MetaSearch_L5" : "*"
 		}
 
 and do a composer install.
 
 Then edit your app.php file. Add the service provider for this package : 
 		
-		'Elfif\LaraSearch\LaraSearchServiceProvider'
+		'Elfif\MetaSearch\MetaSearchServiceProvider'
 
 and add the facade : 
 		
-		'Search' => 'Elfif\LaraSearch\Facades\Search'	
+		'Search' => 'Elfif\MetaSearch\Facades\Search'	
 
 Now you are good to go !!
 
@@ -90,3 +90,13 @@ Non-boolean data types
 
 * _is_present_ - As with _is_true_, useful with a checkbox. Not NULL or the empty string.
 * _is_blank_ - Returns records with a value of NULL or the empty string in the column.
+
+ORed conditions
+
+If you'd like to match on one of several possible columns, you can do this:
+
+		{{ Form::label('name : ') }}
+	    {{ Form::text('name_or_brand_equals') }}
+	    
+Just keep in mind the condition will be the same for all columns.	    
+

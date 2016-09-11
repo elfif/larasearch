@@ -12,7 +12,7 @@
  * @author FIF
  */
 use Mockery as m;
-use Elfif\LaraSearch\LaraSearch as Search;
+use Elfif\MetaSearch_L5\MetaSearch as Search;
 
 class SearchTest extends PHPUnit_Framework_TestCase{
     
