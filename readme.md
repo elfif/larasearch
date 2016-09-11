@@ -56,7 +56,7 @@ Now you are good to go !!
 
 Here is a list of all the keywords you can use with LaraSearch, based on their datatypes
 
-All data types
+### All data types
 
 * _equals_ (alias: _eq_) - Just as it sounds.
 * _does_not_equal_ (aliases: _ne_, _noteq_) - The opposite of equals, oddly enough.
@@ -65,7 +65,7 @@ All data types
 * _is_null_ - The column has an SQL NULL value.
 * _is_not_null_ - The column contains anything but NULL.
 
-Strings
+### Strings
 
 * _contains_ (aliases: _like_, _matches_) - Substring match.
 * _does_not_contain_ (aliases: _nlike_, _nmatches_) - Negative substring match.
@@ -74,24 +74,24 @@ Strings
 * _ends_with_ (alias: _ew_) - Match strings ending with the entered term.
 * _does_not_end_with_ (alias: _dnew_) - Negative of above.
 
-Numbers, dates, and times
+### Numbers, dates, and times
 
 * _greater_than_ (alias: _gt_) - Greater than.
 * _greater_than_or_equal_to_ (aliases: _gte_, _gteq_) - Greater than or equal to.
 * _less_than_ (alias: _lt_) - Less than.
 * _less_than_or_equal_to_ (aliases: _lte_, _lteq_) - Less than or equal to.
 
-Booleans
+### Booleans
 
 * _is_true_ - Is true. Useful for a checkbox like "only show admin users".
 * _is_false_ - The complement of _is_true_.
 
-Non-boolean data types
+### Non-boolean data types
 
 * _is_present_ - As with _is_true_, useful with a checkbox. Not NULL or the empty string.
 * _is_blank_ - Returns records with a value of NULL or the empty string in the column.
 
-ORed conditions
+### ORed conditions
 
 If you'd like to match on one of several possible columns, you can do this:
 
@@ -101,7 +101,7 @@ If you'd like to match on one of several possible columns, you can do this:
 Just keep in mind the condition will be the same for all columns.	    
 
 
-Querying relation existence
+### Querying relation existence
 
 You can also check for a relation existence using the keyword "exist" like that.
 Let's say we have a relation called accessories in our car model : 
@@ -118,10 +118,3 @@ We can request that relation's existence using the keyword "exist" this way :
 If the checkbox is checked it will add that condition to the query builder
 
 		->has('accessories');
-
-
-
-
-		{{ Form::label('disponible : ') }}
-	    {{ Form::text('name_or_brand_equals') }}
-
