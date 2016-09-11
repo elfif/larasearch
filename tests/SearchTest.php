@@ -182,4 +182,12 @@ class SearchTest extends PHPUnit_Framework_TestCase{
         Search::getQuery($queryBuilder, $input);
     }
     
+    public function testExistsQuery(){
+        $input = ['relation_exists'];
+        $queryBuilder = m::mock('Builder');
+        $queryBuilder->shouldReceive('has')->with('relation');
+        Search::getQuery($queryBuilder, $input);
+    }
+
+    
 }

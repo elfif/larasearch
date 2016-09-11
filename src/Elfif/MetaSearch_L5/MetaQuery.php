@@ -209,6 +209,16 @@ class MetaQuery {
         }
     }
     
+    
+    private function existsQuery($field, $or){
+        if ($or){
+            $this->query->orHas($field);
+        } else {
+            $this->query->has($field);
+        }
+    }
+    
+    
     private function str_ends_with($haystack, $needle)
     {
         $pos = strpos($haystack, $needle);
@@ -247,6 +257,7 @@ class MetaQuery {
     CONST LESS_THAN_OR_EQUAL_SHORT = '_lteq';
     CONST IS_TRUE = '_is_true';
     CONST IS_FALSE = '_is_false';
+    CONST EXISTS = '_exists';
     
     private $keywords = array(
         self::EQUALS, 
@@ -276,7 +287,8 @@ class MetaQuery {
         self::LESS_THAN_OR_EQUAL,
         self::LESS_THAN,
         self::IS_TRUE,
-        self::IS_FALSE
+        self::IS_FALSE,
+        self::EXISTS
     );
     
     private $functions = array(
@@ -308,7 +320,8 @@ class MetaQuery {
       self::LESS_THAN_OR_EQUAL =>'lessThanOrEqualQuery',
       self::LESS_THAN =>'lessThanQuery',
       self::IS_TRUE =>'isTrueQuery',
-      self::IS_FALSE =>'isFalseQuery'
+      self::IS_FALSE =>'isFalseQuery',
+      self::EXISTS => 'existsQuery'
     );
     
 }
