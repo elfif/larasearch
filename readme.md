@@ -100,3 +100,28 @@ If you'd like to match on one of several possible columns, you can do this:
 	    
 Just keep in mind the condition will be the same for all columns.	    
 
+
+Querying relation existence
+
+You can also check for a relation existence using the keyword "exist" like that.
+Let's say we have a relation called accessories in our car model : 
+
+		public function accessories(){
+			return $this->hasMany('App\Accessory');
+		}
+		
+We can request that relation's existence using the keyword "exist" this way :
+
+		{{ Form::label('has accessories : ') }}
+		{{ Form::checkbox('accessories_exist') }}
+		
+If the checkbox is checked it will add that condition to the query builder
+
+		->has('accessories');
+
+
+
+
+		{{ Form::label('disponible : ') }}
+	    {{ Form::text('name_or_brand_equals') }}
+
