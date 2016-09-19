@@ -13,11 +13,46 @@
  */
 class MetaQuery {
    
+   
+   /**
+    * @string
+    * initial form key 
+    */
+
     private $key;
+    
+    /**
+     * @array
+     * array of fields to test, in case there is a "or" in the key
+     */ 
+    
     private $fields;
+    
+    /**
+     * @string
+     * fields to test, separated by "or", used to create the $fields array
+     */ 
+    
     private $fieldStr;
+    
+    /**
+     * value to test the fields against 
+     */
+     
     private $value;
+    
+    /**
+     * @string
+     * operator extracted from the $key value
+     */
+     
     private $operator;
+    
+    /**
+     * @Eloquent\Builder
+     * Query Builder where the condition is going to be added
+     */
+     
     private $query;
 
         
@@ -28,23 +63,21 @@ class MetaQuery {
     }
     
     private function setOperator() {
-        foreach($this->keywords as $this->keyword){
-            if ($this->str_ends_with($this->key, $this->keyword)){
-                $this->operator = $this->keyword;
-                $this->fieldStr = str_replace($this->keyword, '', $this->key);
+        foreach($this->keywords as $keyword){
+            if ($this->str_ends_with($this->key, $keyword)){
+                $this->operator = $keyword;
+                $this->fieldStr = str_replace($keyword, '', $this->key);
             }
         }
     }
     
     private function setFields(){
-        $this->fields = explode( self::OU, $this->fieldStr);
-//        var_dump($this->key);
-//        var_dump($this->operator);
-//        var_dump($this->value);
-//        var_dump($this->fields);
-        
-        
+        $fields = explode( self::OU, $this->fieldStr);
+        foreach($fields as $fieldStr){
+            $this->fields[] = new Field($fieldStr);    
+        }
     }
+    
     
     public function getQuery(){
         $this->addQuery();
@@ -56,7 +89,7 @@ class MetaQuery {
     private function addQuery(){
         $this->setOperator();
         $this->setFields();
-        
+
         if (isset($this->operator) && isset($this->fields)){
             foreach($this->fields as $index=>$field){
                 $or = ( $index ? true : false );
@@ -64,157 +97,148 @@ class MetaQuery {
             }
         }
     }
+
+    private function generateWhereQuery($field, $operator, $operand=null, $or = null){
+
+        switch($field->type){
+        case Field::WHERE:
+            if (isset($operand) && isset($this->value)) {
+                $this->query->$operator($field->name, $operand, $this->value);
+            } elseif (empty($operand) && isset($this->value)) {
+                $this->query->$operator($field->name, $this->value);
+            } else {
+                $this->query->$operator($field->name);
+            }
+            break;
+        case Field::HAS:
+            if (isset($operand) && isset($this->value)) {
+                $this->query->$operator($field->relation, $operand, $this->value);
+            } else {
+                $this->query->$operator($field->relation);
+            }
+            break;
+        case Field::WHEREHAS:
+            
+            $firstOperator = ($or) ? "orWhereHas" : "whereHas" ;
+            
+            if (isset($operand) && isset($this->value)) {
+                $this->query->$firstOperator($field->relation, function($query) use ($field, $operand){
+                    return $query->$operator($field->name, $operand, $this->value);
+                });    
+            } else {
+                $this->query->$firstOperator($field->relation, function($query) use ($field){
+                    return $query->$operator($field->name);
+                });    
+            }
+        }
+    }
+    
     
     private function equalsQuery($field, $or){
-        if ($or) {
-            $this->query->orWhere($field, $this->value);
-        } else {
-            $this->query->where($field, $this->value);
-        }
+        $operator = ($or) ? "orWhere" : "where";
+        $this->generateWhereQuery($field, $operator, '=');
     }
 
     private function doesNotEqualQuery($field, $or){
-        if ($or) {
-            $this->query->orWhere($field, "!=", $this->value);
-        } else {
-            $this->query->where($field, "!=", $this->value);
-        }
+        $operator = ($or) ? "orWhere" : "where";
+        $this->generateWhereQuery($field, $operator, '!=');
     }
 
     private function isInQuery($field, $or){
-        if ($or) {
-            $this->query->orWhereIn($field, $this->value);
-        } else {
-            $this->query->whereIn($field, $this->value);
-        }
+        $operator = ($or) ? "orWhereIn" : "whereIn";
+        $this->generateWhereQuery($field, $operator);
     }
 
     private function isNotInQuery($field, $or){
-        if ($or) {
-            $this->query->orWhereNotIn($field, $this->value);
-        } else {
-            $this->query->whereNotIn($field, $this->value);
-        }
+        $operator = ($or) ? "orWhereNotIn" : "whereNotIn";
+        $this->generateWhereQuery($field, $operator);
     }
 
     private function isNullQuery($field){
-        if ($or) {
-            $this->query->orWhereNull($field);
-        } else {
-            $this->query->whereNull($field);
-        }
+        $operator = ($or) ? "orWhereNull" : "whereNull";
+        $this->generateWhereQuery($field, $operator);
     }
 
     private function isNotNullQuery($field){
-        if ($or) {
-            $this->query->orWhereNotNull($field);
-        } else {
-            $this->query->whereNotNull($field);
-        }
+        $operator = ($or) ? "orWhereNotNull" : "whereNotNull";
+        $this->generateWhereQuery($field, $operator);
     }
 
     private function containsQuery($field, $or){
-        if ($or) {
-            $this->query->orWhere($field, 'like', '%'.$this->value.'%');
-        } else {
-            $this->query->where($field, 'like', '%'.$this->value.'%');
-        }
+        $operator = ($or) ? "orWhere" : "where";
+        $this->value = '%'.$this->value.'%';
+        $this->generateWhereQuery($field, $operator, 'like');
     }
 
     private function doesNotContainQuery($field, $or){
-        if ($or) {
-            $this->query->orWhere($field, 'not like', '%'.$this->value.'%');
-        } else {
-            $this->query->where($field, 'not like', '%'.$this->value.'%');
-        }
+        $operator = ($or) ? "orWhere" : "where";
+        $this->value = '%'.$this->value.'%';
+        $this->generateWhereQuery($field, $operator, 'not like');
     }
 
     private function startsWithQuery($field, $or){
-        if ($or) {
-            $this->query->orWhere($field, 'like', $this->value.'%');
-        } else {
-            $this->query->where($field, 'like', $this->value.'%');
-        }
+        $operator = ($or) ? "orWhere" : "where";
+        $this->value = $this->value.'%';
+        $this->generateWhereQuery($field, $operator, 'like');
     }
 
     private function doesNotStartWithQuery($field, $or){
-        if ($or) {
-            $this->query->orWhere($field, 'not like', $this->value.'%');
-        } else {
-            $this->query->where($field, 'not like', $this->value.'%');
-        }
+        $operator = ($or) ? "orWhere" : "where";
+        $this->value = $this->value.'%';
+        $this->generateWhereQuery($field, $operator, 'not like');
     }
 
     private function endsWithQuery($field, $or){
-        if ($or) {
-            $this->query->orWhere($field, 'like', '%'.$this->value);
-        } else {
-            $this->query->where($field, 'like', '%'.$this->value);
-        }
+        $operator = ($or) ? "orWhere" : "where";
+        $this->value = '%'.$this->value;
+        $this->generateWhereQuery($field, $operator, 'like');
     }
 
     private function doesNotEndWithQuery($field, $or){
-        if ($or) {
-            $this->query->orWhere($field, 'not like', '%'.$this->value);
-        } else {
-            $this->query->where($field, 'not like', '%'.$this->value);
-        }
+        $operator = ($or) ? "orWhere" : "where";
+        $this->value = '%'.$this->value;
+        $this->generateWhereQuery($field, $operator, 'not like');
     }
 
     private function greaterThanQuery($field, $or){
-        if ($or) {
-            $this->query->orWhere($field, '>', $this->value);
-        } else {
-            $this->query->where($field, '>', $this->value);
-        }
+        $operator = ($or) ? "orWhere" : "where";
+        $this->generateWhereQuery($field, $operator, '>');
+
     }
 
     private function greaterThanOrEqualQuery($field, $or){
-        if ($or) {
-            $this->query->orWhere($field, '>=', $this->value);
-        } else {
-            $this->query->where($field, '>=', $this->value);
-        }
+        $operator = ($or) ? "orWhere" : "where";
+        $this->generateWhereQuery($field, $operator, '>=');
     }
 
     private function lessThanQuery($field, $or){
-        if ($or) {
-            $this->query->orWhere($field, '<', $this->value);
-        } else {
-            $this->query->where($field, '<', $this->value);
-        }
+        $operator = ($or) ? "orWhere" : "where";
+        $this->generateWhereQuery($field, $operator, '<');
     }
 
     private function lessThanOrEqualQuery($field, $or){
-        if ($or) {
-            $this->query->orWhere($field, '<=', $this->value);
-        } else {
-            $this->query->where($field, '<=', $this->value);
-        }
+        $operator = ($or) ? "orWhere" : "where";
+        $this->generateWhereQuery($field, $operator, '<=');
     }
 
     private function isTrueQuery($field, $or){
-        if ($or) {
-            $this->query->orWere($field, true);
-        } else {
-            $this->query->where($field, true);
-        }
+        $operator = ($or) ? "orWhere" : "where";
+        $this->value = true;
+        $this->generateWhereQuery($field, $operator, '=');
     }
 
     private function isFalseQuery($field, $or){
-        if ($or) {
-            $this->query->orWhere($field, false);
-        } else {
-            $this->query->where($field, false);
-        }
+        $operator = ($or) ? "orWhere" : "where";
+        $this->value = false;
+        $this->generateWhereQuery($field, $operator, '=');
     }
     
     
     private function existsQuery($field, $or){
         if ($or){
-            $this->query->orHas($field);
+            $this->query->orHas($field->name);
         } else {
-            $this->query->has($field);
+            $this->query->has($field->name);
         }
     }
     

@@ -103,6 +103,8 @@ Just keep in mind the condition will be the same for all columns.
 
 ### Querying relation existence
 
+##### Simple case
+
 You can also check for a relation existence using the keyword "exist" like that.
 Let's say we have a relation called accessories in our car model : 
 
@@ -110,11 +112,37 @@ Let's say we have a relation called accessories in our car model :
 			return $this->hasMany('App\Accessory');
 		}
 		
-We can request that relation's existence using the keyword "exist" this way :
+We can request that relation's existence using the keyword "_exists" (or _ex in short) this way :
 
 		{{ Form::label('has accessories : ') }}
-		{{ Form::checkbox('accessories_exist') }}
+		{{ Form::checkbox('accessories_exists') }}
 		
 If the checkbox is checked it will add that condition to the query builder
 
 		->has('accessories');
+		
+##### With a count		
+		
+You may also specify an operator and count to further customize the query using the keyword "_count" (or _co_ in short) plus a keyword to define the condition
+
+		{{ Form::label('has accessories : ') }}
+		{{ Form::text('accessories_count_greater_than') }}
+		
+Will translate into :
+
+		->has('accessories', '>=', $value);
+		
+		
+##### Full condition
+
+If you need even more control over your conditions regarding a relation you can use that notation, with a dot between the relation and the field's name, followed by a condition
+
+		{{ Form::label('accessories : ') }}
+		{{ Form::text('accessories.type_contains') }}
+		
+It will translate into : 
+
+		->whereHas('accessories', function($query){
+			return $query->where('type', 'like', '%'.$value.'%');
+		});
+

@@ -19,22 +19,23 @@ class SearchTest extends PHPUnit_Framework_TestCase{
     public function tearDown()
     {
         m::close();
-    }
+    } 
     
     public function testEqualsQuery(){
         $value = 10;
         $input = ['field_equals' => $value];
         $queryBuilder = m::mock('Builder');
-        $queryBuilder->shouldReceive('where')->with('field', $value);
-        Search::getQuery($queryBuilder, $input);
+        $queryBuilder->shouldReceive('where')->with('field', "=",  $value);
+        $ret = Search::getQuery($queryBuilder, $input);
+
     }
     
     public function testEqualsOrEqualsQuery(){
         $value = 10;
         $input = ['field1_or_field2_equals' => $value];
         $queryBuilder = m::mock('Builder');
-        $queryBuilder->shouldReceive('where')->with('field1', $value);
-        $queryBuilder->shouldReceive('orWhere')->with('field2', $value);
+        $queryBuilder->shouldReceive('where')->with('field1', "=", $value);
+        $queryBuilder->shouldReceive('orWhere')->with('field2', "=", $value);
         Search::getQuery($queryBuilder, $input);
     }
     
@@ -170,7 +171,7 @@ class SearchTest extends PHPUnit_Framework_TestCase{
         $value = true;
         $input = ['field_is_true' => null];
         $queryBuilder = m::mock('Builder');
-        $queryBuilder->shouldReceive('where')->with('field', $value);
+        $queryBuilder->shouldReceive('where')->with('field', '=', $value);
         Search::getQuery($queryBuilder, $input);
     }
     
@@ -178,16 +179,30 @@ class SearchTest extends PHPUnit_Framework_TestCase{
         $value = false;
         $input = ['field_is_false"' => null];
         $queryBuilder = m::mock('Builder');
-        $queryBuilder->shouldReceive('where')->with('field', $value);
+        $queryBuilder->shouldReceive('where')->with('field', '=', $value);
         Search::getQuery($queryBuilder, $input);
     }
     
     public function testExistsQuery(){
-        $input = ['relation_exists'];
+        $input = ['relation_exists' => null];
         $queryBuilder = m::mock('Builder');
         $queryBuilder->shouldReceive('has')->with('relation');
         Search::getQuery($queryBuilder, $input);
     }
-
     
+    public function textExistsCountQuery(){
+        $value = 45;
+        $input = ['relation_count_equals' => $value];
+        $queryBuilder = m::mock('Builder');
+        $queryBuilder->shouldReceive('has')->with('relation', "=", $value);
+        Search::getQuery($queryBuilder, $input);
+    }
+
+    // public function textExistsCountQuery(){
+    //     $value = 45;
+    //     $input = ['relation.field_equals' => $value];
+    //     $queryBuilder = m::mock('Builder');
+    //     $queryBuilder->shouldReceive("whereHas")->with()
+    //     Search::getQuery($queryBuilder, $input);
+    // }
 }

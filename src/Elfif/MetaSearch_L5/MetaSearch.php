@@ -13,7 +13,7 @@ class MetaSearch {
     private $formData;
     private $query;
 
-    public function setQuery($query){
+    public function setQuery(&$query){
         $this->query = $query;
     }
     
