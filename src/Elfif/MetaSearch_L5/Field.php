@@ -69,10 +69,9 @@ class Field {
         }
         
         $pos2 = strpos($this->fieldStr, "_count");
-        // $pos3 = strpos($this->fieldStr, "_exis");
         if ($pos2){
             $this->type = self::HAS;
-            $this->relation = substr($this->fieldStr, 0, $pos);
+            $this->relation = substr($this->fieldStr, 0, $pos2);
             return $this->type;
         }
         
