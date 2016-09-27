@@ -154,12 +154,12 @@ class MetaQuery {
         $this->generateWhereQuery($field, $operator);
     }
 
-    private function isNullQuery($field){
+    private function isNullQuery($field, $or){
         $operator = ($or) ? "orWhereNull" : "whereNull";
         $this->generateWhereQuery($field, $operator);
     }
 
-    private function isNotNullQuery($field){
+    private function isNotNullQuery($field, $or){
         $operator = ($or) ? "orWhereNotNull" : "whereNotNull";
         $this->generateWhereQuery($field, $operator);
     }
