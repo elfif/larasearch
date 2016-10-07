@@ -60,8 +60,8 @@ Here is a list of all the keywords you can use with LaraSearch, based on their d
 
 * _equals_ (alias: _eq_) - Just as it sounds.
 * _does_not_equal_ (aliases: _ne_, _noteq_) - The opposite of equals, oddly enough.
-* _in_ - Takes an array, matches on equality with any of the items in the array.
-* _not_in_ (aliases: _ni_, _notin_) - Like above, but negated.
+* _is_in_ - Takes an array, matches on equality with any of the items in the array.
+* _is_not_in_ - Like above, but negated.
 * _is_null_ - The column has an SQL NULL value.
 * _is_not_null_ - The column contains anything but NULL.
 
