@@ -256,7 +256,7 @@ class MetaQuery {
     CONST EQUALS = '_equals';
     CONST EQUALS_SHORT = '_eq';
     CONST DOES_NOT_EQUAL = '_does_not_equals';
-    CONST DOES_NOT_EQUAL_SHORT = '_does_not_eq';
+    CONST DOES_NOT_EQUAL_SHORT = '_noteq';
     CONST IS_IN = '_is_in';
     CONST IS_NOT_IN = '_is_not_in';
     CONST IS_NULL = '_is_null';

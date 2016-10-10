@@ -59,7 +59,7 @@ Here is a list of all the keywords you can use with LaraSearch, based on their d
 ### All data types
 
 * _equals_ (alias: _eq_) - Just as it sounds.
-* _does_not_equal_ (aliases: _ne_, _noteq_) - The opposite of equals, oddly enough.
+* _does_not_equal_ (alias : _noteq) - The opposite of equals, oddly enough.
 * _is_in_ - Takes an array, matches on equality with any of the items in the array.
 * _is_not_in_ - Like above, but negated.
 * _is_null_ - The column has an SQL NULL value.
@@ -67,29 +67,29 @@ Here is a list of all the keywords you can use with LaraSearch, based on their d
 
 ### Strings
 
-* _contains_ (aliases: _like_, _matches_) - Substring match.
-* _does_not_contain_ (aliases: _nlike_, _nmatches_) - Negative substring match.
-* _starts_with_ (alias: _sw_) - Match strings beginning with the entered term.
-* _does_not_start_with_ (alias: _dnsw_) - The opposite of above.
-* _ends_with_ (alias: _ew_) - Match strings ending with the entered term.
-* _does_not_end_with_ (alias: _dnew_) - Negative of above.
+* _contains - Substring match.
+* _does_not_contain - Negative substring match.
+* _starts_with (alias: _sw) - Match strings beginning with the entered term.
+* _does_not_start_with (alias: _dnsw) - The opposite of above.
+* _ends_with (alias: _ew) - Match strings ending with the entered term.
+* _does_not_end_with (alias: _dnew) - Negative of above.
 
 ### Numbers, dates, and times
 
-* _greater_than_ (alias: _gt_) - Greater than.
-* _greater_than_or_equal_to_ (aliases: _gte_, _gteq_) - Greater than or equal to.
-* _less_than_ (alias: _lt_) - Less than.
-* _less_than_or_equal_to_ (aliases: _lte_, _lteq_) - Less than or equal to.
+* _greater_than (alias: _gt) - Greater than.
+* _greater_than_or_equal_to (alias: _gteq) - Greater than or equal to.
+* _less_than (alias: _lt) - Less than.
+* _less_than_or_equal_to (alias: _lteq) - Less than or equal to.
 
 ### Booleans
 
-* _is_true_ - Is true. Useful for a checkbox like "only show admin users".
-* _is_false_ - The complement of _is_true_.
+* _is_true - Is true. Useful for a checkbox like "only show admin users".
+* _is_false - The complement of _is_true.
 
 ### Non-boolean data types
 
-* _is_present_ - As with _is_true_, useful with a checkbox. Not NULL or the empty string.
-* _is_blank_ - Returns records with a value of NULL or the empty string in the column.
+* _is_present - As with _is_true, useful with a checkbox. Not NULL or the empty string.
+* _is_blank - Returns records with a value of NULL or the empty string in the column.
 
 ### ORed conditions
 
