@@ -1,4 +1,6 @@
-<?php namespace Elfif\MetaSearch_L5; 
+<?php
+
+namespace Elfif\MetaSearch_L5; 
 
 /*
  * To change this license header, choose License Headers in Project Properties.

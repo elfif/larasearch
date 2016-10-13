@@ -1,4 +1,6 @@
-<?php namespace Elfif\MetaSearch_L5; 
+<?php 
+
+namespace Elfif\MetaSearch_L5; 
 
 /**
  * Description of metaSearch

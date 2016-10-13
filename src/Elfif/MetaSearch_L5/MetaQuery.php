@@ -1,4 +1,6 @@
-<?php namespace Elfif\MetaSearch_L5; 
+<?php
+
+namespace Elfif\MetaSearch_L5; 
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -54,6 +56,13 @@ class MetaQuery {
      */
      
     private $query;
+    
+    /**
+     * @boolean
+     * Tell if we are in a oredCase ....
+     */
+     
+    private $oredCase;
 
         
     public function __construct($pKey, $pValue, $pQuery) {
@@ -76,6 +85,12 @@ class MetaQuery {
         foreach($fields as $fieldStr){
             $this->fields[] = new Field($fieldStr);    
         }
+        
+        $this->oredCase = false;
+        if (count($fields) > 1){
+            $this->oredCase = true;
+        }
+        
     }
     
     
@@ -91,10 +106,22 @@ class MetaQuery {
         $this->setFields();
 
         if (isset($this->operator) && isset($this->fields)){
-            foreach($this->fields as $index=>$field){
-                $or = ( $index ? true : false );
-                call_user_func(array($this, $this->functions[$this->operator]), $field, $or);
-            }
+            if ($this->oredCase)
+            {
+                $fields = $this->fields;
+                $operator = $this->functions[$this->operator];
+                $value = $this->value;
+                $this->query->where(function($query) use ($fields, $operator){
+                    foreach($fields as $index=>$field){    
+                        $or = ( $index ? true : false );
+                        $op = new Operation($query, $operator, $field, $value, $or);
+                        $query = $op->getQuery();        
+                    }
+                });
+            } else {
+                $op = new Operation($this->query, $this->functions[$this->operator], $this->fields[0], $this->value);
+                $this->query = $op->getQuery();
+            }     
         }
     }
 

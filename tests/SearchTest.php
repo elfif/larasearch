@@ -27,17 +27,16 @@ class SearchTest extends PHPUnit_Framework_TestCase{
         $queryBuilder = m::mock('Builder');
         $queryBuilder->shouldReceive('where')->with('field', "=",  $value);
         $ret = Search::getQuery($queryBuilder, $input);
-
     }
     
-    public function testEqualsOrEqualsQuery(){
-        $value = 10;
-        $input = ['field1_or_field2_equals' => $value];
-        $queryBuilder = m::mock('Builder');
-        $queryBuilder->shouldReceive('where')->with('field1', "=", $value);
-        $queryBuilder->shouldReceive('orWhere')->with('field2', "=", $value);
-        Search::getQuery($queryBuilder, $input);
-    }
+    // public function testEqualsOrEqualsQuery(){
+    //     $value = 10;
+    //     $input = ['field1_or_field2_equals' => $value];
+    //     $queryBuilder = m::mock('Builder');
+    //     $queryBuilder->shouldReceive('where')->with('field1', "=", $value);
+    //     $queryBuilder->shouldReceive('orWhere')->with('field2', "=", $value);
+    //     Search::getQuery($queryBuilder, $input);
+    // }
     
     public function testDoesNotEqualQuery(){
         $value = 10;
@@ -85,14 +84,14 @@ class SearchTest extends PHPUnit_Framework_TestCase{
         Search::getQuery($queryBuilder, $input);
     }
     
-    public function testContainsOrQuery(){
-        $value = 'some_string';
-        $input = ['field1_or_field2_contains' => $value];
-        $queryBuilder = m::mock('Builder');
-        $queryBuilder->shouldReceive('where')->with('field1', 'like', '%'.$value.'%');
-        $queryBuilder->shouldReceive('orWhere')->with('field2', 'like', '%'.$value.'%');
-        Search::getQuery($queryBuilder, $input);
-    }
+    // public function testContainsOrQuery(){
+    //     $value = 'some_string';
+    //     $input = ['field1_or_field2_contains' => $value];
+    //     $queryBuilder = m::mock('Builder');
+    //     $queryBuilder->shouldReceive('where')->with('field1', 'like', '%'.$value.'%');
+    //     $queryBuilder->shouldReceive('orWhere')->with('field2', 'like', '%'.$value.'%');
+    //     Search::getQuery($queryBuilder, $input);
+    // }
     
     public function testDoesNotContainQuery(){
         $value = 'some_string';
@@ -205,4 +204,5 @@ class SearchTest extends PHPUnit_Framework_TestCase{
     //     $queryBuilder->shouldReceive("whereHas")->with()
     //     Search::getQuery($queryBuilder, $input);
     // }
+    
 }
