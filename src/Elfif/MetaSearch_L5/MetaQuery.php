@@ -111,7 +111,7 @@ class MetaQuery {
                 $fields = $this->fields;
                 $operator = $this->functions[$this->operator];
                 $value = $this->value;
-                $this->query->where(function($query) use ($fields, $operator){
+                $this->query->where(function($query) use ($fields, $operator, $value){
                     foreach($fields as $index=>$field){    
                         $or = ( $index ? true : false );
                         $op = new Operation($query, $operator, $field, $value, $or);
