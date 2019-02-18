@@ -64,11 +64,11 @@ namespace Elfif\MetaSearch_L5;
             $firstOperator = ($or) ? "orWhereHas" : "whereHas" ;
             
             if (isset($operand) && isset($this->value)) {
-                $this->query->$firstOperator($field->relation, function($query) use ($field, $operand){
+                    $this->query->$firstOperator($field->relation, function($query) use ($field, $operand, $operator){
                     return $query->$operator($field->name, $operand, $this->value);
                 });    
             } else {
-                $this->query->$firstOperator($field->relation, function($query) use ($field){
+                    $this->query->$firstOperator($field->relation, function($query) use ($field, $operator){
                     return $query->$operator($field->name);
                 });    
             }
