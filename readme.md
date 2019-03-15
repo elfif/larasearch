@@ -77,9 +77,9 @@ Here is a list of all the keywords you can use with LaraSearch, based on their d
 ### Numbers, dates, and times
 
 * _greater_than (alias: _gt) - Greater than.
-* _greater_than_or_equal_to (alias: _gteq) - Greater than or equal to.
+* _greater_than_or_equal (alias: _gteq) - Greater than or equal to.
 * _less_than (alias: _lt) - Less than.
-* _less_than_or_equal_to (alias: _lteq) - Less than or equal to.
+* _less_than_or_equal (alias: _lteq) - Less than or equal to.
 
 ### Booleans
 
