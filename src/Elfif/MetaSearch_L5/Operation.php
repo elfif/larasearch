@@ -70,7 +70,12 @@ class Operation
                 }
                 break;
             case Field::WHEREHAS:
-                $firstOperator = ($or) ? "orWhereHas" : "whereHas" ;
+                if ($this->or) {
+                    $firstOperator = "orWhereHas";
+                    $operator = 'where';
+                } else {
+                    $firstOperator = 'whereHas';
+                }
 
                 if (isset($operand) && isset($this->value)) {
                     $this->query->$firstOperator($field->relation, function($query) use ($field, $operand, $operator){
